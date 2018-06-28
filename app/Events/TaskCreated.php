@@ -34,6 +34,7 @@ class TaskCreated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('tasks'.$this->task->project_id);
+        //使用私有频道更加的安全
+        return new PrivateChannel('tasks'.$this->task->project_id);
     }
 }

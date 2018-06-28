@@ -45,3 +45,5 @@ Route::post('/api/projects/{projectId}/tasks',function ($project){
     $task=$project->tasks()->create(['body'=>request('body')]);
     event(new \App\Events\TaskCreated($task));
 });
+Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();

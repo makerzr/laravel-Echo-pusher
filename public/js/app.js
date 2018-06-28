@@ -52477,7 +52477,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('/api/projects/' + this.project + '/tasks').then(function (response) {
             _this.tasks = response.data;
         });
-        window.Echo.channel('tasks' + this.project).listen('TaskCreated', function (e) {
+        window.Echo.private('tasks' + this.project).listen('TaskCreated', function (e) {
             _this.tasks.push(e.task.body);
         });
     },
