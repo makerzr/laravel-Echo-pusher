@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get('/order',function (){
+Route::get('/order', function () {
     $order = \App\Order::find(2);
     //触发事件的2个方式
     //\App\Events\OrderUpdated::dispatch();
@@ -31,19 +31,30 @@ Route::get('/order',function (){
 //   event(new \App\Events\TaskCreated($task));
 //});
 //新的路由
-Route::get('projects/{projectId}',function ($project){
+Route::get('projects/{projectId}', function ($project) {
     $project = \App\Project::find($project);
-    return view('projects.show',compact('project'));
+    return view('projects.show', compact('project'));
 });
-Route::get('/api/projects/{projectId}/tasks',function ($project){
+Route::get('/api/projects/{projectId}/tasks', function ($project) {
     $project = \App\Project::find($project);
     return $project->tasks->pluck('body');
 });
 
-Route::post('/api/projects/{projectId}/tasks',function ($project){
+Route::post('/api/projects/{projectId}/tasks', function ($project) {
     $project = \App\Project::find($project);
-    $task=$project->tasks()->create(['body'=>request('body')]);
+    $task = $project->tasks()->create(['body' => request('body')]);
     event(new \App\Events\TaskCreated($task));
 });
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
+
+//Route::get('/', function (\App\Billing\Stripe $stripe) {
+//    dd($stripe->charge());
+//});
+
+Route::get('/',function (){
+//   dd(app(\Illuminate\Contracts\Config\Repository::class)['database']['default']);
+//   dd(config('database.default'));
+//   dd(app('config')['database']['default']);
+   dd(app(\Illuminate\Config\Repository::class)['database']['default']);
+});
