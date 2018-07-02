@@ -14,7 +14,7 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-
+\Illuminate\Support\Facades\Auth::loginUsingId(5);
 Route::get('/order', function () {
     $order = \App\Order::find(2);
     //触发事件的2个方式
@@ -52,9 +52,17 @@ Auth::routes();
 //    dd($stripe->charge());
 //});
 
-Route::get('/',function (){
-//   dd(app(\Illuminate\Contracts\Config\Repository::class)['database']['default']);
-//   dd(config('database.default'));
-//   dd(app('config')['database']['default']);
-   dd(app(\Illuminate\Config\Repository::class)['database']['default']);
+Route::get('/', function () {
+//    $post = \App\Post::find(10);
+//    $comment = $post->comments()->create(['user_id' => \Auth::id(), 'body' => 'use trait']);
+//    return $comment;
+//    $user = \Illuminate\Support\Facades\Auth::user();
+//    $userRecord = $user->records;
+//    return $userRecord;
+    $post = \App\Post::create([
+        'user_id' => 5,
+        'title'   => '测试的文章标题',
+        'body'    => '测试的内容信息',
+    ]);
+    return $post;
 });
